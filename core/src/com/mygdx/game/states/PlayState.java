@@ -8,6 +8,7 @@ import com.mygdx.game.FlappyBird;
 import com.mygdx.game.sprites.Bird;
 import com.mygdx.game.sprites.Tube;
 
+// created by Aleksey Petrovskiy
 public class PlayState extends State {
     private Bird bird;
     private Texture bg;
@@ -26,7 +27,7 @@ public class PlayState extends State {
 
         tubes = new Array<Tube>();
 
-        for(int i=1; i<TUBE_COUNT; i++) {
+        for(int i=1; i<=TUBE_COUNT; i++) {
             tubes.add(new Tube((TUBE_SPACING + Tube.TUBE_WIDTH) * i));
         }
     }
@@ -42,6 +43,7 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bird.update(dt);
+        camera.position.x = bird.getPosition().x;
 
         // движение труб
         for (Tube tube : tubes) {
@@ -49,7 +51,11 @@ public class PlayState extends State {
                     tube.getPosTopTube().x + tube.getTopTube().getWidth()) {
                 tube.reposition(tube.getPosTopTube().x + (Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT);
             }
+            if(tube.collides(bird.getBounds())) {
+                gsm.set(new PlayState(gsm));
+            }
         }
+
         camera.update();
     }
 
@@ -61,7 +67,7 @@ public class PlayState extends State {
         sb.begin();
         // создав getter'ы текстуры птицы и позиции в классе Bird мы можем получить их значения
         // даже учитывая, что они являются private. Данный подход являются частью инкапсуляции(т.е. безопасности данных)
-        sb.draw(bg, 0, 0, FlappyBird.WIDTH, FlappyBird.HEIGHT);
+        sb.draw(bg, camera.position.x - camera.viewportWidth/2, 0, FlappyBird.WIDTH, FlappyBird.HEIGHT);
         sb.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
 
         // отрисовываем 4 трубы
