@@ -8,6 +8,9 @@ public class Bird {
     private Vector3 position;
     private Texture bird;
 
+    public static final int GRAVITY = -15;
+    public static final int MOVEMENT = 100;
+
     public Vector3 getPosition() {
         return position;
     }
@@ -15,8 +18,6 @@ public class Bird {
     public Texture getBird() {
         return bird;
     }
-
-    public static final int GRAVITY = -15;
 
     public Bird(int x, int y) {
         position = new Vector3(x,y,0);
@@ -27,7 +28,7 @@ public class Bird {
     public void update(float dt) {
         velocity.add(0, GRAVITY, 0);
         velocity.scl(dt);
-        position.add(0, velocity.y, 0);
+        position.add(MOVEMENT * dt, velocity.y, 0);
 
         // коэффициент скорости падения
         velocity.scl(1/dt);
