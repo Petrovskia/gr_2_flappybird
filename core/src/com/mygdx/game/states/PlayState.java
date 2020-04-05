@@ -54,7 +54,7 @@ public class PlayState extends State {
 
             // столкновение птицы с трубой
             if(tube.collides(bird.getBounds())) {
-                gsm.set(new PlayState(gsm));
+                gsm.set(new GameOver(gsm));
             }
         }
 

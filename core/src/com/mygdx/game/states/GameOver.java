@@ -11,6 +11,7 @@ public class GameOver extends State {
 
     public GameOver(GameStateManager gsm) {
         super(gsm);
+        camera.setToOrtho(false, FlappyBird.WIDTH/2, FlappyBird.HEIGHT/2);
         background = new Texture("bg.png");
         gameover = new Texture("gameover.png");
     }
@@ -32,7 +33,7 @@ public class GameOver extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
-        sb.draw(background, camera.position.x - gameover.getWidth()/2, camera.position.y - gameover.getHeight()/2);
+        sb.draw(background, 0,0);
         sb.draw(gameover, camera.position.x - gameover.getWidth()/2, camera.position.y);
         sb.end();
 
