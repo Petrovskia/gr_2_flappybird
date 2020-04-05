@@ -51,6 +51,8 @@ public class PlayState extends State {
                     tube.getPosTopTube().x + tube.getTopTube().getWidth()) {
                 tube.reposition(tube.getPosTopTube().x + (Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT);
             }
+
+            // столкновение птицы с трубой
             if(tube.collides(bird.getBounds())) {
                 gsm.set(new PlayState(gsm));
             }
@@ -82,6 +84,5 @@ public class PlayState extends State {
 
     @Override
     public void dispose() {
-
     }
 }
